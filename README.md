@@ -20,7 +20,7 @@ npm install
 npm run dev
 cd ..
 ```
-Copy sample environment:
+Copy (and edit) sample environment:
 ```
 cp .env.sample .env
 ```
