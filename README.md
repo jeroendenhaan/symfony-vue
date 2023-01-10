@@ -6,6 +6,15 @@ Simple playground/sandbox setup for containerized Symfony/PHP/mySQL setup, with 
 From the project's root directory:
 ```
 cd symfony
+```
+Create file .env.local and put your environment and secret in it:
+```
+# Overwrite values in Symfony's .env using global .env in root (or fallback for Composer install)
+APP_ENV=dev
+APP_SECRET=your_secret_here
+```
+Then install all dependencies:
+```
 composer install
 npm install
 npm run dev
