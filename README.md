@@ -1,6 +1,6 @@
 # symfony-vue
 
-Private, simple test setup for containerized Symfony/PHP/mySQL setup, with persistent volumes (of course) for Symfony code and mySQL database(s).
+Simple playground/sandbox setup for containerized Symfony/PHP/mySQL setup, with persistent volumes for Symfony code and mySQL database(s).
 
 Installation:
 - central database configuration in root's .env file (copy from .env.sample)
