@@ -24,7 +24,7 @@ Copy (and edit) sample environment:
 ```
 cp .env.sample .env
 ```
-Run the Docker Compose setup:
+Run the Docker Compose cluster (or use './up.sh' in root directory):
 ```
 docker compose up --build
 ```
