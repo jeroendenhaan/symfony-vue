@@ -1,6 +1,8 @@
-# symfony-vue
+# Symfony Restful API & Vue SPA
 
-Simple playground/sandbox setup for containerized Symfony/PHP/mySQL setup, with persistent volumes for Symfony code and mySQL database(s).
+Personal, simple playground/sandbox setup for containerized Symfony/PHP/mySQL/Vue setup, with persistent volumes for Symfony code and mySQL database(s). Aim is to use Symfony as a backend REST API, accessible by a frontend Vue SPA.
+
+*This is a work in progress and will remain just that: I use it to teach myself and made this repo public in order to easily show my work to others in order to learn.*
 
 ## Installation
 From the project's root directory:
@@ -32,10 +34,15 @@ In container 'php' run:
 ```
 php bin/console doctrine:migrations:migrate
 ```
-That'll create a MySQL table named 'person' and fill it with some test data.
+That'll create a MySQL table named 'character' and fill it with some test data.
 
-Visit http://127.0.0.1:8080 and http://127.0.0.1:8080/person to check proper installation.
+Visit http://127.0.0.1:8080/character to check if all works well.
+
+## API endpoints
+```
+/character (shows all characters)
+/character/<id> (shows character with specific id)
+```
 
 ## To do
-- Transform Symfony app into backend API microservice
 - Setup Vue container as front end
