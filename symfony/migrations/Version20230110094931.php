@@ -19,14 +19,55 @@ final class Version20230110094931 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
+        $sql = <<<SQL
+INSERT INTO `character` (name, race, age)
+VALUES ('Frodo Baggins', 'Hobbit', 33);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Gandalf', 'Istar', 2019);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Aragorn', 'Human', 87);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Legolas', 'Elf', 2931);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Gimli', 'Dwarf', 139);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Saruman', 'Istar', 2019);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Bilbo Baggins', 'Hobbit', 111);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Galadriel', 'Elf', 6029);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Theoden', 'Human', 63);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Eomer', 'Human', 30);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Peregrin Took', 'Hobbit', 33);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Merry Brandybuck', 'Hobbit', 33);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Samwise Gamgee', 'Hobbit', 38);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Boromir', 'Human', 37);
+
+INSERT INTO `character` (name, race, age)
+VALUES ('Faramir', 'Human', 38);
+SQL;
+
         // Fill with some test data
-        $this->addSql("INSERT INTO person (first_name, last_name, type) VALUES ('Gandalf', 'the Grey', 'Wizard')");
-        $this->addSql("INSERT INTO person (first_name, last_name, type) VALUES ('Gimli', null, 'Dwarf')");
-        $this->addSql("INSERT INTO person (first_name, last_name, type) VALUES ('Boromir', null, 'Dead')");
-        $this->addSql("INSERT INTO person (first_name, last_name, type) VALUES ('Aragorn II', 'Elessar', 'King')");
-        $this->addSql("INSERT INTO person (first_name, last_name, type) VALUES ('Samwise', 'Gamgee', 'Hobbit')");
-        $this->addSql("INSERT INTO person (first_name, last_name, type) VALUES ('Frodo', 'Baggins', 'Hobbit')");
-        $this->addSql("INSERT INTO person (first_name, last_name, type) VALUES ('Sauron', null, 'Bad guy')");
+        $this->addSql($sql);
     }
 
     public function down(Schema $schema): void
