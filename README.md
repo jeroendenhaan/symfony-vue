@@ -38,11 +38,17 @@ That'll create a MySQL table named 'character' and fill it with some test data.
 
 Visit http://127.0.0.1:8080/character to check if all works well.
 
-## API endpoints
+## API endpoint examples
 ```
-/character (shows all characters)
-/character/<id> (shows character with specific id)
+/character (shows all characters, by ascending id)
+/character?order=age (shows all, ordered by ascending age)
+/character?order=name&dir=desc (shows all by name, descending)
+/character/5 (shows character with id 5)
+/character/search/gorn (searches name and race for query 'gorn')
+/character/search/gorn?order=age&dir=desc (same, but ordered)
 ```
 
 ## To do
+- Properly comment everything
+- Write some automated tests
 - Setup Vue container as front end
