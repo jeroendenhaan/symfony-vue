@@ -1,16 +1,28 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <p>Characters:</p>
+  <div v-for="character in characters">
+    {{ character.name }} ({{ character.race }}, {{ character.age }})
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { getAllCharacters } from "@/services/CharacterService";
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  data() {
+    return {
+      characters: [],
+    }
+  },
+  mounted() {
+    getAllCharacters().then(
+        (response) => {
+          this.characters = response;
+        }
+    );
+  },
 }
 </script>
 
