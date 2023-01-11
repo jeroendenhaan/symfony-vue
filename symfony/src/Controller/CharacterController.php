@@ -9,10 +9,24 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Character;
 
+
+/**
+ * Class CharacterController
+ *
+ * Provides restful endpoints for a bunch of characters in our MySQL database.
+ */
+#[Route('/api/character', name: 'api_character_')]
 class CharacterController extends AbstractController
 {
 
-    #[Route('/character', name: 'characters_index', methods: ['GET'])]
+    /**
+     * Fetches all rows and returns them in JSON format.
+     *
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     */
+    #[Route('/', name: 'characters_index', methods: ['GET'])]
     public function index(Request $request, ManagerRegistry $doctrine): Response
     {
 
@@ -24,18 +38,20 @@ class CharacterController extends AbstractController
 
         $data = [];
         foreach ($characters as $character) {
-            $data[] = [
-                'id' => $character->getId(),
-                'name' => $character->getName(),
-                'race' => $character->getRace(),
-                'age' => $character->getAge(),
-            ];
+            $data[] = $character->getArray();
         }
 
         return $this->json($data);
     }
 
-    #[Route('/character/{id}', name: 'characters_show', methods: ['GET'])]
+    /**
+     * Fetches and returns a single entry.
+     *
+     * @param ManagerRegistry $doctrine
+     * @param int $id
+     * @return Response
+     */
+    #[Route('/{id}', name: 'characters_show', methods: ['GET'])]
     public function show(ManagerRegistry $doctrine, int $id): Response
     {
         $character = $doctrine->getRepository(Character::class)->find($id);
@@ -45,17 +61,20 @@ class CharacterController extends AbstractController
             return $this->json('No character found for id ' . $id, 404);
         }
 
-        $data = [
-            'id' => $character->getId(),
-            'name' => $character->getName(),
-            'race' => $character->getRace(),
-            'age' => $character->getAge(),
-        ];
+        $data = $character->getArray();
 
         return $this->json($data);
     }
 
-    #[Route('/character/search/{q}', name: 'characters_search', methods: ['GET'])]
+    /**
+     * Performs a '%LIKE%' search on columns name and race for the given query parameter.
+     *
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @param string $q
+     * @return Response
+     */
+    #[Route('/search/{q}', name: 'characters_search', methods: ['GET'])]
     public function search(Request $request, ManagerRegistry $doctrine, string $q): Response
     {
         $qb = $doctrine->getRepository(Character::class)
@@ -80,17 +99,18 @@ class CharacterController extends AbstractController
 
         $data = [];
         foreach ($characters as $character) {
-            $data[] = [
-                'id' => $character->getId(),
-                'name' => $character->getName(),
-                'race' => $character->getRace(),
-                'age' => $character->getAge(),
-            ];
+            $data[] = $character->getArray();
         }
 
         return $this->json($data);
     }
 
+    /**
+     * Examines the current request for 'order' and 'dir' parameters and creates/returns an array accordingly.
+     *
+     * @param Request $request
+     * @return array
+     */
     private function _getOrderArray(Request $request)
     {
 

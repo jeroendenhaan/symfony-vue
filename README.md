@@ -36,19 +36,18 @@ php bin/console doctrine:migrations:migrate
 ```
 That'll create a MySQL table named 'character' and fill it with some test data.
 
-Visit http://127.0.0.1:8080/character to check if all works well.
+Visit http://127.0.0.1:8080/api/character to check if all works well.
 
 ## API endpoint examples
 ```
-/character (shows all characters, by ascending id)
-/character?order=age (shows all, ordered by ascending age)
-/character?order=name&dir=desc (shows all by name, descending)
-/character/5 (shows character with id 5)
-/character/search/gorn (searches name and race for query 'gorn')
-/character/search/gorn?order=age&dir=desc (same, but ordered)
+/api/character (shows all characters, by ascending id)
+/api/character?order=age (shows all, ordered by ascending age)
+/api/character?order=name&dir=desc (shows all by name, descending)
+/api/character/5 (shows character with id 5)
+/api/character/search/gorn (searches name and race for query 'gorn')
+/api/character/search/gorn?order=age&dir=desc (same, but ordered)
 ```
 
 ## To do
-- Properly comment everything
 - Write some automated tests
 - Setup Vue container as front end
