@@ -15,7 +15,9 @@ services:
       - internal
   nginx:
     container_name: nginx
-    image: nginx:stable-alpine
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile
     ports:
       - "8080:80"
     volumes:
@@ -30,6 +32,7 @@ services:
     container_name: php
     build:
       context: ./php
+      dockerfile: ./Dockerfile
     environment:
       DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       DB_DATABASE: ${DB_DATABASE}
