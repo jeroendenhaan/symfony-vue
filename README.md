@@ -2,7 +2,11 @@
 
 Personal, simple playground/sandbox setup for containerized Symfony/PHP/mySQL/Vue setup, with persistent volumes for Symfony code and mySQL database(s). Aim is to use Symfony as a backend REST API, accessible by a frontend Vue SPA.
 
+For now, it's working on a basic level: I have some containers running for the main systems, the backend API has some basic functionalities and the Vue frontend successfully fetches some data from the backend API.
+
 *This is a work in progress and will remain just that: I use it to teach myself and made this repo public in order to easily show my work to others in order to learn.*
+
+*Are you good at what I'm trying to do here? I'd love suggestions on how to improve this setup or code!*
 
 ## Installation
 From the project's root directory:
@@ -36,7 +40,9 @@ php bin/console doctrine:migrations:migrate
 ```
 That'll create a MySQL table named 'character' and fill it with some test data.
 
-Visit http://127.0.0.1:8080/api/character to check if all works well.
+Visit http://127.0.0.1:8080/api/character to see backend API response.
+
+See http://127.0.0.1:8081 to see simple Vue frontend output.
 
 ## API endpoint examples
 ```
@@ -49,5 +55,6 @@ Visit http://127.0.0.1:8080/api/character to check if all works well.
 ```
 
 ## To do
+- Add authentication to API
+- Git gud at Vue so I can test the API calls better
 - Write some automated tests
-- Setup Vue container as front end
