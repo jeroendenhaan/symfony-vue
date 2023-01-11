@@ -44,6 +44,19 @@ services:
       - internal
     depends_on:
       - mysql
+  vue:
+    container_name: vue
+    build:
+      context: ./vue
+      dockerfile: ./Dockerfile
+    volumes:
+      - './vue:/app'
+    ports:
+      - '8081:8080'
+    networks:
+      - internal
+    depends_on:
+      - php
 networks:
   internal:
     driver: bridge
