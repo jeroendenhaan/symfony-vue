@@ -1,4 +1,4 @@
-# Symfony Restful API & Vue SPA
+# Symfony Restful API & Vue SPA (in progress)
 
 Personal, simple playground/sandbox setup for containerized Symfony/PHP/mySQL/Vue setup, with persistent volumes for Symfony code and mySQL database(s). Aim is to use Symfony as a backend REST API, accessible by a frontend Vue SPA.
 
