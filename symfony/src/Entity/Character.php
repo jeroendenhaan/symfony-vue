@@ -64,17 +64,4 @@ class Character
         return $this;
     }
 
-    /**
-     * Creates and returns an array of fields, ready for JSON formatting.
-     * @return array
-     */
-    public function getArray(): array
-    {
-        return [
-            'id' => $this->getId(),
-            'name' => $this->getName(),
-            'race' => $this->getRace(),
-            'age' => $this->getAge(),
-        ];
-    }
 }
