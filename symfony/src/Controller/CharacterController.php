@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 use App\Entity\Character;
 
 
@@ -30,16 +31,20 @@ class CharacterController extends AbstractController
     public function index(Request $request, ManagerRegistry $doctrine): Response
     {
 
+        // Initiate query builder
+        $qb = $doctrine->getRepository(Character::class)
+            ->createQueryBuilder('character');
+
+        // Get order parameters if available and extend query accordingly
         $order = $this->_getOrderArray($request);
-
-        $characters = $doctrine
-            ->getRepository(Character::class)
-            ->findBy([], $order);
-
-        $data = [];
-        foreach ($characters as $character) {
-            $data[] = $character->getArray();
+        if (count($order)) {
+            $key = array_key_first($order);
+            $val = $order[$key];
+            $qb->orderBy('character.' . $key, $val);
         }
+
+        // Execute query, get results as array
+        $data = $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
         return $this->json($data);
     }
@@ -54,14 +59,15 @@ class CharacterController extends AbstractController
     #[Route('/{id}', name: 'characters_show', methods: ['GET'])]
     public function show(ManagerRegistry $doctrine, int $id): Response
     {
-        $character = $doctrine->getRepository(Character::class)->find($id);
 
-        if (!$character) {
+        // Initiate query builder
+        $qb = $doctrine->getRepository(Character::class)
+            ->createQueryBuilder('character')
+            ->where('character.id = :id')
+            ->setParameter('id', $id);
 
-            return $this->json('No character found for id ' . $id, 404);
-        }
-
-        $data = $character->getArray();
+        // Execute query, get results as array
+        $data = $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
         return $this->json($data);
     }
@@ -90,16 +96,10 @@ class CharacterController extends AbstractController
             $qb->orderBy('character.' . $key, $val);
         }
 
-        $characters = $qb->getQuery()->getResult();
+        $data = $qb->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
-        if (!$characters) {
-
+        if (!$data) {
             return $this->json('No characters found for query ' . $q, 404);
-        }
-
-        $data = [];
-        foreach ($characters as $character) {
-            $data[] = $character->getArray();
         }
 
         return $this->json($data);
@@ -115,10 +115,12 @@ class CharacterController extends AbstractController
     {
 
         $order = [];
-        if (!is_null($request->query->get('order'))) {
-            $order[$request->query->get('order')] = 'asc';
-            if (!is_null($request->query->get('dir')) && in_array($request->query->get('dir'), ['asc', 'desc'])) {
-                $order[$request->query->get('order')] = $request->query->get('dir');
+        $paramOrder = $request->query->get('order');
+        $paramDir = $request->query->get('dir');
+        if (!is_null($paramOrder)) {
+            $order[$paramOrder] = 'asc';
+            if (!is_null($paramDir) && in_array($paramDir, ['asc', 'desc'])) {
+                $order[$paramOrder] = $paramDir;
             }
         }
 
