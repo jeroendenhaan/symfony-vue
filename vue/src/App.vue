@@ -1,8 +1,8 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <p>Characters:</p>
-  <div v-for="character in characters">
-    {{ character.name }} ({{ character.race }}, {{ character.age }})
+  <div v-for="character in characters" :key="character.id">
+    {{ character.id }}: {{ character.name }} ({{ character.race }}, {{ character.age }})
   </div>
 </template>
 
